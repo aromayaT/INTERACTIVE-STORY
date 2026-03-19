@@ -15,12 +15,13 @@ arcade interface
 camera pov
 piano background (?)
 service room guy in a hotel
+tv news indicating food poisoning = mutation
+first game on a console or anything screen = lags into news
 
 First game : 
 
 
 STORY :
-
 
 
 
