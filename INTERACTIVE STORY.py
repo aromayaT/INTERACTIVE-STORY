@@ -1,18 +1,15 @@
 scenario = {
-    "Foyer 1": {
+    "Foyer": {
         "description": "Vous êtes dans le foyer.",
         "choix": {0 : "Escalier",
                   1 : "Salon",
                   2 : "Salle à manger",
-                  3 : "Cuisine",
-                  4 : "Toilettes",
-                  5 : "Extérieur"}
+                  3 : "Salle des invités"}
     },
     "Salon": {
         "description": "Vous êtes dans le salon.",
         "choix": {0 : "Foyer",
-                  1 : "Salle à manger",
-                  2 : "Cuisine"}
+                  1 : "Salle à manger"}
     },
     "Cuisine": {
         "description": "Vous êtes dans la cuisine.",
@@ -22,43 +19,50 @@ scenario = {
     "Salle à manger": {
         "description": "Vous êtes dans la salle à manger.",
         "choix": {0 : "Foyer",
-                  1 : "Salon"}
+                  1 : "Salon",
+                  2 : "Cuisine",
+                  3 : "Toilettes"}
     },
-    "Toilettes 1": {
+    "Toilettes": {
         "description": "Vous êtes dans les toilettes.",
-        "choix": {0 : "Foyer"}
+        "choix": {0 : "Salle à manger"}
     },
     "Escalier": {
         "description": "Vous êtes en face des escaliers. Monter au premier étage ?",
         "choix": {0 : "Foyer",
-                  1 : "1er étage"}
-    }
-    "Foyer 2": {
+                  1 : "2ème étage"}
+    },
+    "Salle des invités": {
+        "description": "Vous êtes dans la salle des invités.",
+        "choix": {0 : "Foyer"}
+    },
+    "2ème étage": {
         "description": "Vous êtes au premier étage.",
-        "choix": {0 : "Foyer 1",
-                  1 : "Rez de chaussée"}
-    }
-    "Toilettes 2": {
-        "description": "Vous êtes dans les toilettes.",
-        "choix": {0 : "Foyer 2"
-    }
+        "choix": {0 : "Escalier",
+                  1 : "Salle de bain",
+                  2 : "Chambre de parents",
+                  3 : "Votre chambre"}
+    },
+    "Salle de bain": {
+        "description": "Vous êtes dans la salle de bain.",
+        "choix": {0 : "2ème étage"}
+    },
     "Chambre des parents": {
         "description": "Vous êtes dans la chambre des parents.",
-        "choix": {0 : "Foyer 2",
-                  1 : "Toilettes 3"}
-    }
+        "choix": {0 : "2ème étage",
+                  1 : "Salle de bain des parents"}
+    },
     "Votre chambre": {
         "description": "Vous êtes dans votre chambre. Que voulez-vous faire ?",
-        "choix": {0 : "Foyer 2",
+        "choix": {0 : "2ème étage"}
+    },
+    "Salle de bain de parents": {
+        "description": "Vous êtes dans la salle de bain des parents.",
+        "choix": {0 : "Chambre des parents"}
     }
-    "Toilettes 3": {
-        "description": "Vous êtes en face des escaliers. Monter au premier étage ?",
-        "choix": {0 : "Chambre des parents"
-    }
-
 }
 
-salle = "Foyer 1"
+salle = "Foyer"
 while True:
     print(scenario[salle]["description"])
     for numero, destination in scenario[salle]["choix"].items():
