@@ -68,8 +68,20 @@ scenario = {
 }
 
 salle = "Votre chambre"
+mum = True
+dad = True
 while True:
+    
     print(scenario[salle]["description"])
+    
+    if salle == "Votre chambre" and mum:
+        print("Maman : Coucou, chéri. Bien dormi ? Va rejoindre papa dans la cuisine.")
+        mum = False
+    
+    if salle == "Cuisine" and mum == False:
+        print("Papa : Salut fiston. On veut tous être le meilleur dresseur.")
+        dad = False
+        
     for numero, destination in scenario[salle]["choix"].items():
         print(f"{numero}: {destination}")
         
