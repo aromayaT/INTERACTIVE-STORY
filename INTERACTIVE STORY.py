@@ -30,39 +30,44 @@ scenario = {
     "Escalier": {
         "description": "Vous êtes en face des escaliers. Monter au premier étage ?",
         "choix": {0 : "Foyer",
-                  1 : "2ème étage"}
+                  1 : "Couloir"}
     },
     "Salle des invités": {
         "description": "Vous êtes dans la salle des invités.",
         "choix": {0 : "Foyer"}
     },
     "2ème étage": {
+        "description": "Vous êtes au deuxième étage. Voulez vous descendre ou accéder au couloir ?",
+        "choix": {0 : "Escalier",
+                  1 : "Couloir"}
+    },
+    "Couloir": {
         "description": "Vous êtes au premier étage.",
         "choix": {0 : "Escalier",
                   1 : "Salle de bain",
-                  2 : "Chambre de parents",
+                  2 : "Chambre des parents",
                   3 : "Votre chambre"}
     },
     "Salle de bain": {
         "description": "Vous êtes dans la salle de bain.",
-        "choix": {0 : "2ème étage"}
+        "choix": {0 : "Couloir"}
     },
     "Chambre des parents": {
         "description": "Vous êtes dans la chambre des parents.",
-        "choix": {0 : "2ème étage",
+        "choix": {0 : "Couloir",
                   1 : "Salle de bain des parents"}
     },
     "Votre chambre": {
         "description": "Vous êtes dans votre chambre. Que voulez-vous faire ?",
-        "choix": {0 : "2ème étage"}
+        "choix": {0 : "Couloir"}
     },
-    "Salle de bain de parents": {
+    "Salle de bain des parents": {
         "description": "Vous êtes dans la salle de bain des parents.",
         "choix": {0 : "Chambre des parents"}
     }
 }
 
-salle = "Foyer"
+salle = "Votre chambre"
 while True:
     print(scenario[salle]["description"])
     for numero, destination in scenario[salle]["choix"].items():
