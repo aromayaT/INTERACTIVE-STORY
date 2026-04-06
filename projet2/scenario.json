@@ -8,7 +8,7 @@
         "choix": {"0": "Foyer", "1": "Salle à manger"}
     },
     "Cuisine": {
-        "description": "Vous êtes dans la cuisine. \nPapa : Salut fiston. On veut tous être le meilleur dresseur.",
+        "description": "Vous êtes dans la cuisine. \nPapa : Enfin reveillé ? J'ai préparé à manger. Va t'asseoir devant la télé, je t'amène le tout.",
         "choix": {"0": "Foyer", "1": "Salon"},
         "action": ["dad = False"]
     },
@@ -44,11 +44,15 @@
         "description": "Vous êtes dans la chambre des parents.",
         "choix": {"0": "Couloir", "1": "Salle de bain des parents"}
     },
-    "Votre chambre": {
-        "description": "Vous êtes dans votre chambre. Que voulez-vous faire ?\nMaman : Coucou, chéri. Bien dormi ? Va rejoindre papa dans la cuisine.",
-        "choix": {"0": "Couloir"},
-        "action": ["mum = False"]
-    },
+  "Votre chambre": {
+    "description": "Vous êtes dans votre chambre.",
+    "choix": {"0": "Couloir"},
+    "action": [
+        "if mum:",
+        "    print('Maman : Coucou, chéri. Bien dormi ?')",
+        "    mum = False"
+    ]
+},
     "Salle de bain des parents": {
         "description": "Vous êtes dans la salle de bain des parents.",
         "choix": {"0": "Chambre des parents"}
