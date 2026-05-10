@@ -33,7 +33,7 @@
         "choix": {"0": "Escalier", "1": "Couloir"}
     },
     "Couloir": {
-        "description": "Vous êtes au premier étage.",
+        "description": "Vous êtes dans le couloir du deuxième étage.",
         "choix": {"0": "Escalier", "1": "Salle de bain", "2": "Chambre des parents", "3": "Votre chambre"}
     },
     "Salle de bain": {
