@@ -3,6 +3,11 @@ import random
 import tkinter as tk
 from tkinter import font as tkfont
 from PIL import Image, ImageTk
+from colorama import Fore, Style, init
+
+init()
+
+ITALIC = '\x1B[3m'
 
 def ouvre_scenario(fichier):
     # Ouvre le fichier en mode lecture
@@ -14,10 +19,8 @@ def ouvre_scenario(fichier):
 scenario = ouvre_scenario("scenario.json")
 salle = "Votre chambre"
 mode = "chambre"
-post_affiche = False
 root = tk.Tk()
 root.withdraw()
-ordinateur_affiche = False
 
 def intro():
     print("Vous ouvrez les yeux dans une chambre inconnue.")
@@ -74,12 +77,12 @@ def chambre(etat):
         
         if objets[choix] == etat["cle_objet"]:
             if not etat["ordi"]:
-                print("Vous ressentez une pprésence étrange...")
+                print("Vous ressentez une présence étrange...")
             else:    
                 print("Vous avez trouvé une clé.")
                 etat["porte_ouverte"] = True
         elif objets[choix] == "ordinateur":
-            if etat["ordi"]:
+            if not etat["ordi"]:
                 print("Étrangement, vous avez l'impression que cet ordinateur se détache des autres éléments de cette maison.")
                 print("Sa présence vous laisse inconfortable, mais vous n'arrivez pas à détourner le regard.")
                 print("Plus vous le fixez, et plus vous avez l'impression qu'il vous regarde en retour.")
@@ -95,6 +98,16 @@ def chambre(etat):
         print("Vous restez immobile...")
         
     return etat
+
+def inventory(etat):
+    print("\n=== INVENTAIRE ===")
+    
+    if len(etat["inventaire"]) == 0:
+        print("Un peu vide...")
+    else:
+        for obj in etat["inventaire"]:
+            print("- " + obj)
+    print("==================\n")
 
 event_ordi = ["Vous restez intrigué par la présence de l'ordinateur.",
               "Vous repensez à l'ordinateur sans raison particulière.",
@@ -157,7 +170,11 @@ objets = ["bureau", "tiroir", "armoire", "lit", "ordinateur"]
 etat = {
     "cle_objet": random.choice(objets),
     "porte_ouverte": False,
-    "ordi": False
+    "ordi": False,
+    "post_affiche": False,
+    "ordinateur_affiche": False,
+    "rdc": False,
+    "inventaire": []
     }
 
 intro()   
@@ -174,33 +191,51 @@ while True:
     
     elif mode == "maison":
         
-        if not post_affiche:
+        if not etat["post_affiche"]:
             post_porte()
-            post_affiche = True
+            etat["post_affiche"] = True
         
-        print(scenario[salle]["description"])
-        if random.random() < 0.7:
+        print("\n" + scenario[salle]["description"])
+        if random.random() < 0.3:
             print(random.choice(ambiance))
         if random.random() < 0.05:        
             print(random.choice(evenements_rares))
 
         if salle == "Chambre des parents":
             print("\nQuelque chose brille au fond de la salle.")
-            print("Vous vous en approchez et comprenez alors que la seule source de lumière émanant de cette salle est un ordinateur")
+            print("Vous vous en approchez et comprenez alors que la seule source de lumière émanant de celle-ci est un ordinateur.")
             print("Il semblerait que quelqu'un l'ait utilisé récemment, mais sans succès...")
         
-        if random.random() < 0.4 and salle != "Chambre des parents":
-            print(random.choice(event_ordi))
+        if random.random() < 0.15 and salle != "Chambre des parents":
+            texte = random.choice(event_ordi)
+
+            print(
+                Fore.LIGHTRED_EX +
+                Style.DIM +
+                ITALIC +
+                texte +
+                Style.RESET_ALL
+            )
         
         for numero, destination in scenario[salle]["choix"].items():
             print(f"{numero}: {destination}")
         
-        choix = input("Où aller ? : ")
-        
-        if choix in scenario[salle]["choix"]:
-            salle = scenario[salle]["choix"][choix]
+        choix = input("Où aller ? : (I pour ouvrir l'inventaire) : ")
+        if choix.lower() == "i":
+            inventory(etat)
         else:
-            print("\nVous tentez soudainement de passer à travers le mur, mais sans issue...\n")
+            if choix in scenario[salle]["choix"]:
+                destination = scenario[salle]["choix"][choix]
+                
+                if salle == "Couloir" and destination == "Escalier" and not etat["rdc"]:
+                    print("\nVous vous approchez lentement des escaliers.")
+                    print("Il semblerait que l'accès au rez-de-chaussée est bloqué")
+                    print("La porte faisant office d'obstacle présente un digicode composé de 4 chiffres...")
+                    
+                else:
+                    salle = destination
+            else:
+                print("\nVous tentez soudainement de passer à travers le mur, mais sans issue...\n")
             
             
             
