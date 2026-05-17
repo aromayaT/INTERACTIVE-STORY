@@ -108,6 +108,22 @@ def inventory(etat):
         for obj in etat["inventaire"]:
             print("- " + obj)
     print("==================\n")
+    
+def inspecter(salle):
+    choix = input("Voulez-vous inspecter cette salle ? (oui/non): ")
+    if choix.lower() not in ["oui", "o"]:
+        return None
+    
+    print(choix)
+                  
+    if salle == "Votre chambre":
+        print("Vous entrez lentement dans votre chambre. L’air y est étonnamment glacé, bien plus que dans le reste de la maison. La pièce est plongée dans une obscurité presque totale, seulement traversée par une faible lumière provenant d’une horloge numérique figée sur 19:47. Les meubles vous semblent familiers… mais quelque chose paraît profondément anormal.")
+                  
+    if salle == "Salle de bain des parents":
+        print("Vous poussez la porte de la salle de bain. Une légère odeur d’humidité flotte dans l’air et le miroir couvert de traces ternes déforme vaguement votre reflet. Au-dessus du lavabo, une petite horloge murale arrêtée sur 19:47 émet un faible grésillement avant de retomber dans le silence.")
+                  
+    if salle == "Salle de bain":
+        print("La salle de bain des parents paraît étrangement propre, presque inutilisée. Les carreaux froids réfléchissent la faible lumière de la pièce et rendent l’atmosphère encore plus vide. Près de la baignoire, une horloge blanche semble bloquée sur 19:47, comme si le temps lui-même avait cessé d’avancer ici.")
 
 event_ordi = ["Vous restez intrigué par la présence de l'ordinateur.",
               "Vous repensez à l'ordinateur sans raison particulière.",
@@ -196,6 +212,10 @@ while True:
             etat["post_affiche"] = True
         
         print("\n" + scenario[salle]["description"])
+        
+        if not salle == "Couloir":
+            inspecter(salle)
+        
         if random.random() < 0.3:
             print(random.choice(ambiance))
         if random.random() < 0.05:        
@@ -229,7 +249,7 @@ while True:
                 
                 if salle == "Couloir" and destination == "Escalier" and not etat["rdc"]:
                     print("\nVous vous approchez lentement des escaliers.")
-                    print("Il semblerait que l'accès au rez-de-chaussée est bloqué")
+                    print("Il semblerait que l'accès au rez-de-chaussée est bloqué.")
                     print("La porte faisant office d'obstacle présente un digicode composé de 4 chiffres...")
                     
                 else:
